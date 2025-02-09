@@ -3,10 +3,21 @@ const bcrypt = require('bcrypt');
 
 // User Schema
 const userSchema = new mongoose.Schema({
-    username: { type: String, required: true, unique: true },
+    _id: { type: Number, required: true },
+    name: { type: String, required: true},
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    library: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Book' }],
+    library: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Book',
+        },
+    ],
+    readingProgress: {
+        type: Map,
+        of: Number,
+        default: {},
+    },
 }, { timestamps: true });
 
 // Password hashing before saving
